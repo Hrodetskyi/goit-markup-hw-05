@@ -8,6 +8,8 @@
 /* --Колір фону третинний - #F5F4FA */
 /* --Колір фону герой та футер - #2F303A */
 
+/* transition: [property] [duration] [timing-function] [delay] */
+
 :root {
     --primary-headlines-color: #212121;
     --secondary-text-color: #FFFFFF;
@@ -18,11 +20,13 @@
     --trethiary-bcg-color: #F5F4FA;
     --hero-bcg-color: #2F303A;
     --overlay-color: rgba(47, 48, 58, 0.4);
+    --secondary-overlay-color: rgba(47, 48, 58, 0.8);
     --icon-color: #AFB1B8;
 
     --font-family-primary: 'Roboto', sans-serif;
 
-   
+    --transition-duration: 250ms;
+    --transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1)
 }
 
 body {
@@ -88,6 +92,9 @@ h1, h2, h3, h4, h5, h6, p {
     margin-left: 50px;
 }
 
+.menu-link {
+    position: relative;
+}
 
 .logo {
     color: #000000;
@@ -104,6 +111,8 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 .link {
+    position: relative;
+
     display: block;
     padding-top: 32px;
     padding-bottom: 32px;
@@ -128,22 +137,41 @@ h1, h2, h3, h4, h5, h6, p {
     text-decoration: none;
     line-height: 1.14;
     font-weight: 500;
+    transition: color var(--transition-duration) var(--transition-timing-function);
 }
 
 .decor-icon {
     margin-right: 10px;
     fill: var(--text-color);
+    transition: fill var(--transition-duration) var(--transition-timing-function);
 }
 
 .link:hover, .link:focus,
 .address-item:hover .decor-icon,
 .address-item:focus .decor-icon {
+
     color: var(--interactive-color);
     fill: var(--interactive-color);
+    transition: fill var(--transition-duration) var(--transition-timing-function),
+        color var(--transition-duration) var(--transition-timing-function);
 }
 
 .site-nav .link-nav .current {
     color: var(--interactive-color);
+}
+
+.current::after {
+    content: '';
+
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    border-radius: 2px;
+
+    display: block;
+    width: 100%;
+    height: 4px;
+    background-color: var(--interactive-color);
 }
 
 /* Hero */
@@ -267,11 +295,49 @@ h1, h2, h3, h4, h5, h6, p {
 .list-do {
     display: flex;
     justify-content: center;
+    
 }
 
-.list-do .item + .item {
-    margin-left: 30px;
+.list-do {
+    gap: 30px;
 }
+
+.list-do > .item {
+    position: relative;
+}
+
+.list-do>.item::before {
+    content: '';
+
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 70px;
+
+    background-color: var(--secondary-overlay-color);
+
+}
+
+.list-do .label {
+
+    position: absolute;
+    left: 50%;
+    bottom: 27px;
+    transform: translate(-50%);
+    
+
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 1.14;
+    letter-spacing: 0.03em;
+    text-align: center;
+    text-transform: uppercase;
+
+    color: var(--secondary-text-color);
+}
+
 
 
 /* Our team */
@@ -336,7 +402,8 @@ h1, h2, h3, h4, h5, h6, p {
 
 .area-icon {
     display: flex;
-    border-radius: 100%;   
+    border-radius: 100%; 
+    transition: background-color var(--transition-duration) var(--transition-timing-function);  
 }
 
 .social-links .social-item + .social-item {
@@ -347,6 +414,7 @@ h1, h2, h3, h4, h5, h6, p {
     margin: 12px;
     width: 44px;
     fill: var(--icon-color);
+    transition: fill var(--transition-duration) var(--transition-timing-function);
 }
 
 .area-icon:hover, .area-icon:focus,
@@ -354,6 +422,8 @@ h1, h2, h3, h4, h5, h6, p {
 .area-icon:focus .social-icon {
 fill: var(--secondary-text-color);
 background-color: var(--interactive-color);
+transition: fill var(--transition-duration) var(--transition-timing-function),
+    background-color var(--transition-duration) var(--transition-timing-function);
 }
 
 /* Our clients */
@@ -371,6 +441,7 @@ background-color: var(--interactive-color);
     height: 92px;
     border: 1px solid var(--icon-color);
     border-radius: 0px 0px 4px 4px;
+    transition: border var(--transition-duration) var(--transition-timing-function);
 }
 
 .list-clients .client-item + .client-item {
@@ -379,16 +450,66 @@ background-color: var(--interactive-color);
 
 .clients-icon {
     fill: var(--icon-color);
+    transition: fill var(--transition-duration) var(--transition-timing-function);
 }
 
 .client-area-icon:hover .clients-icon,
 .client-area-icon:focus .clients-icon {
     fill: var(--interactive-color);
+    transition: fill var(--transition-duration) var(--transition-timing-function);
 }
 
 .client-area-icon:hover,
 .client-area-icon:focus {
-    border-color: var(--interactive-color)
+    border-color: var(--interactive-color);
+    transition: border-color var(--transition-duration) var(--transition-timing-function);
+}
+
+/* Modal */
+.backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    opacity: 1;
+    transition: opacity var(--transition-duration) var(--transition-timing-function);
+}
+
+.backdrop.is-hidden .modal {
+    transform: translate(-50%, -50%) scale(0.9);
+}
+
+.modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+
+    width: 528px;
+    height: 581px;
+
+    background-color: var(--primary-bcg-color);
+}
+
+.modal-button {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    
+    border-radius: 100%;
+    border-color: #969696;
+    background-color: #cecece;
+    width: 30px;
+    font-size: 22px;
+    color: #000000;
+
+}
+
+.backdrop.is-hidden {
+    opacity: 0;
+    pointer-events: none;
 }
 
 /* Footer */
@@ -473,6 +594,7 @@ footer {
     height: 44px;
     border-radius: 100%;
     background-color: #44454E;
+    transition: background-color var(--transition-duration) var(--transition-timing-function);
 }
 
 .footer-social-icon {
@@ -487,6 +609,7 @@ footer {
 .footer-area-icon:hover,
 .footer-area-icon:focus {
     background-color: var(--interactive-color);
+    transition: background-color var(--transition-duration) var(--transition-timing-function);
 }
 
 /* Portfolio.html */
@@ -517,17 +640,16 @@ footer {
     background: #F5F4FA;
     border-radius: 4px;
     border-color: transparent;
+    transition: color var(--transition-duration) var(--transition-timing-function),
+    background-color var(--transition-duration) var(--transition-timing-function);
 }
 
 .portfolio-filter:hover,
 .portfolio-filter:focus {
     color: var(--secondary-text-color);
     background-color: var(--interactive-color);
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 1.6;
-    text-align: center;
-    letter-spacing: 0.03em;
+    transition: color var(--transition-duration) var(--transition-timing-function),
+    background-color var(--transition-duration) var(--transition-timing-function);
 }
 
 .subject-portfolio {
@@ -543,6 +665,37 @@ footer {
     font-size: 16px;
     line-height: 1.9;
     letter-spacing: 0.03em;
+}
+
+.overlay-box {
+    position: relative;
+    overflow: hidden;
+}
+
+.portfolio-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--interactive-color);
+    transform: translateY(100%);
+    opacity: 0;
+
+    transition: transform var(--transition-duration) var(--transition-timing-function),
+    opacity var(--transition-duration) var(--transition-timing-function);
+
+}
+
+.text-overlay {
+    padding-top: 63px;
+    padding-bottom: 63px;
+    padding-left: 24px;
+    padding-right: 24px;
+    font-size: 18px;
+    line-height: 1.55;
+    letter-spacing: 0.03em;
+    color: var(--secondary-text-color);
 }
 
 .portfolio-list {
@@ -574,8 +727,25 @@ footer {
     margin-bottom: 0px;
 }
 
+.filter-card {
+    transition: box-shadow var(--transition-duration) var(--transition-timing-function);
+}
+
+
+.filter-card:hover .portfolio-overlay {
+    opacity: 1;
+    transform: translateY(0);
+
+    transition: transform var(--transition-duration) var(--transition-timing-function), 
+    opacity var(--transition-duration) var(--transition-timing-function);
+}
+
 .filter-card:hover {
-    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 2px 1px rgba(0, 0, 0, 0.2);
+    box-shadow: 
+     0px 1px 3px rgba(0, 0, 0, 0.12),
+     0px 1px 1px rgba(0, 0, 0, 0.14),    
+     0px 2px 1px rgba(0, 0, 0, 0.2);
+    transition: box-shadow var(--transition-duration) var(--transition-timing-function);
 }
 
 
@@ -588,6 +758,7 @@ footer {
     border-bottom: 1px solid #EEEEEE;
     border-left: 1px solid #EEEEEE;
     border-right: 1px solid #EEEEEE;
+    background-color: var(--primary-bcg-color);
 }
 
 

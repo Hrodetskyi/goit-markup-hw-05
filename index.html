@@ -50,13 +50,13 @@
 
     <!-- Main -->
     <main>
-            <!-- Hero -->
-            <section  class="hero overlay">
-                <div class="hero-box">
-                    <h1 class="hero-title">ефективні рішення <br>для вашого бізнесу</h1>
-                    <button type="button" class="button cursor">Замовити послугу</button>
-                </div>
-            </section>
+        <!-- Hero -->
+        <section  class="hero overlay">
+            <div class="hero-box">
+                <h1 class="hero-title">ефективні рішення <br>для вашого бізнесу</h1>
+                <button data-modal-open type="button" class="button cursor">Замовити послугу</button>
+            </div>
+        </section>
         <!-- Benefits -->
         <section class="section benefits">
             <div class="container">
@@ -105,9 +105,18 @@
             <div class="container">
                 <h2 class="title">Чим займаємось</h2>
                 <ul class="list list-do">
-                    <li class="item"><img  class="no-gap" src="./images/img/box1.jpg" alt="Фото людини, яка пише код" width="370"></li>
-                    <li class="item"><img  class="no-gap" src="./images/img/box2.jpg" alt="Фото людини, яка робить дизайн додатку" width="370"></li>
-                    <li class="item"><img  class="no-gap" src="./images/img/box3.jpg" alt="Фото людини, яка обирає колір в кольоровому колі Ittena" width="370"></li>
+                    <li class="item">
+                            <img  class="no-gap" src="./images/img/box1.jpg" alt="Фото людини, яка пише код" width="370">
+                            <p class="label">десктопні програми</p>
+                    </li>
+                    <li class="item">
+                            <img  class="no-gap" src="./images/img/box2.jpg" alt="Фото людини, яка робить дизайн додатку" width="370">
+                            <p class="label">мобільні додатки</p>
+                    </li>
+                    <li class="item">
+                            <img  class="no-gap" src="./images/img/box3.jpg" alt="Фото людини, яка обирає колір в кольоровому колі Ittena" width="370">
+                            <p class="label">дизайнерські рішення</p>
+                    </li>
                 </ul>
             </div>
         </section>
@@ -317,6 +326,11 @@
                 </ul>
             </div>
         </section>
+        <div  data-modal class="backdrop is-hidden">
+            <div class="modal">
+                <button  data-modal-close type="button" class="modal-button cursor">&#215</button>
+            </div>
+        </div>
     </main>
     <!-- Footer -->
     <footer>
@@ -366,6 +380,7 @@
             </div>
         </div>
     </footer>
+    <script src="./js/modal.js"></script>
 </body>
 
 </html>
