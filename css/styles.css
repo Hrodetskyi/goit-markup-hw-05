@@ -479,6 +479,9 @@ transition: fill var(--transition-duration) var(--transition-timing-function),
 
 .backdrop.is-hidden .modal {
     transform: translate(-50%, -50%) scale(0.9);
+    opacity: 0;
+    transition: opacity var(--transition-duration) var(--transition-timing-function),
+    transform var(--transition-duration) var(--transition-timing-function);
 }
 
 .modal {
@@ -489,6 +492,9 @@ transition: fill var(--transition-duration) var(--transition-timing-function),
 
     width: 528px;
     height: 581px;
+    opacity: 1;
+    transition: opacity var(--transition-duration) var(--transition-timing-function), 
+    transform var(--transition-duration) var(--transition-timing-function);
 
     background-color: var(--primary-bcg-color);
 }
